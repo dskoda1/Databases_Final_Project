@@ -17,7 +17,9 @@ public class mydemo1 {
       OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
       ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
       //gonna wanna get user input for username and password
-	Connection conn = ds.getConnection("user", "pw");
+	System.out.println("Acquiring connection");
+	Connection conn = ds.getConnection("dskoda1", "David926");
+	System.out.println("Connection acquired");
 
       // Query
       Statement stmt = conn.createStatement (); 
