@@ -16,6 +16,22 @@ public class test {
 			Connection conn = validateUser();
 			System.out.println("Connection Successful.");
 
+
+
+			//Try and call initialize/compile scripts
+			ScriptRunner sr = new ScriptRunner(conn, false, false);
+			
+			//Prepare the statement
+	                CallableStatement cs = conn.prepareCall("start project2script");
+	
+	                //Register the out parameter
+	                //cs.registerOutParameter(1, OracleTypes.CURSOR);
+	
+	                //Execute
+	                cs.execute();
+
+
+
 			//Loop for user input
 			Scanner s = new Scanner(System.in);
 			while(true){
