@@ -16,7 +16,7 @@ public class mydemo1 {
       //Connection to Oracle server
       OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
       ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111"); 
-      Connection conn = ds.getConnection("jgrillo1", "Bailey25");
+      Connection conn = ds.getConnection("");
 
       // Query
       Statement stmt = conn.createStatement (); 
