@@ -13,7 +13,7 @@ public class test {
 			//Set up the connection
 			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
 			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
-			Connection conn = ds.getConnection("dskoda1", "David926");
+			Connection conn = ds.getConnection("username", "pwd");
 	
 			//Prepare the statement
 			CallableStatement cs = conn.prepareCall("begin ? := displayTable.getEmployees(); end;");
