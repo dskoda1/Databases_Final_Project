@@ -26,7 +26,6 @@ function getEmployees
 		select * from employees;
 		return rc;
 	end;
-
 function getCustomers
 	return ref_cursor as rc ref_cursor;
 	begin 

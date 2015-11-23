@@ -14,15 +14,22 @@ public class test {
 		try{
 
 			Connection conn = validateUser();
+			System.out.println("Connection Successful.");
 
 			//Loop for user input
-			while(1){
+			Scanner s = new Scanner(System.in);
+			while(true){
 					int choice = displayTableUserInputParser();
-					executeDisplayTablePackage(coice, conn);
+					executeDisplayTablePackage(choice, conn);
+					System.out.println("Continue? 1 = yes, 0 = no.");
+					String cont = s.nextLine();
+					if(Integer.parseInt(cont) == 0){
+						break;
+					}
 			}
 
 			//Close the rs, statement, and connection
-			cs.close();
+			//cs.close();
 			conn.close();
 
 
@@ -37,6 +44,9 @@ public class test {
 	}
 
 	public static void executeDisplayTablePackage(int choice, Connection conn) throws SQLException, Exception{
+
+		System.out.println("Choice passed into executeDisplayTable: " + Integer.toString(choice));
+
 
 		String procedure = "";
 
@@ -56,6 +66,8 @@ public class test {
 			case 7: procedure = "getLogs";
 				break;
 		}
+
+		System.out.println("Procedure after switch statement is: " + procedure);
 
 		//Prepare the statement
 		CallableStatement cs = conn.prepareCall("begin ? := displayTable." + procedure + "(); end;");
@@ -77,6 +89,7 @@ public class test {
 
 		}
 
+		cs.close();
 		return;
 
 	}
