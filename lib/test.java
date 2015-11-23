@@ -6,6 +6,8 @@ import java.awt.*;
 import oracle.jdbc.pool.OracleDataSource;
 import java.util.Scanner;
 import java.io.Console;
+import java.lang.*;
+import java.lang.ProcessBuilder;
 public class test {
 
 
@@ -13,12 +15,8 @@ public class test {
 
 		try{
 
-			Connection conn = validateUser();
+			Connection conn = validateUserAndInitializeDB();
 			System.out.println("Connection Successful.");
-
-
-
-			//Try and call initialize/compile scripts
 
 
 
@@ -51,9 +49,6 @@ public class test {
 
 	public static void executeDisplayTablePackage(int choice, Connection conn) throws SQLException, Exception{
 
-		System.out.println("Choice passed into executeDisplayTable: " + Integer.toString(choice));
-
-
 		String procedure = "";
 
 		switch(choice){
@@ -71,9 +66,11 @@ public class test {
 			break;
 			case 7: procedure = "getLogs";
 				break;
+			default:
+				System.out.println("Unrecognized option.");
+				return;
 		}
 
-		System.out.println("Procedure after switch statement is: " + procedure);
 
 		//Prepare the statement
 		CallableStatement cs = conn.prepareCall("begin ? := displayTable." + procedure + "(); end;");
@@ -145,8 +142,8 @@ public class test {
 	Acquire the users login and password for use in connecting.
 	Return the connection object to be used in queries.
 	*/
-	public static Connection validateUserAndInitializeDB() throws SQLException{
-
+	public static Connection validateUserAndInitializeDB() throws SQLException, IOException, InterruptedException{
+			
 			//Get the connection all set up
 			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
 			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
@@ -160,20 +157,34 @@ public class test {
 			c = System.console();
 			String password = new String(c.readPassword());
 			Connection conn = ds.getConnection(username, password);
+			/*	
+			This code below breaks the program for some reason. It definitely runs, and it does
+			run the scripts we need, but for some reason running it breaks the connection and
+			none of the packages functions work after it
 
+			I think were gonna just need to run project2script and compile any packages from
+			inside sqlplus when we demo, and before we try and run our code here when we add to
+			the packages.
+			*/
 
 			//Run the initialize scripts here
-			Runtime rt = Runtime.getRuntime();
-    	String executeSqlCommand = "sqlplus " + username + "/" + password + "@acad111 @project2script.sql";
-      Process pr = rt.exec();
-      int exitVal = pr.waitFor();
-      System.out.println("Exited with error code " + exitVal);
+//			System.out.println("Connecting to sqlplus");
+//			System.out.println("Running init scripts");
+//			//Need to redirect to >/dev/null 2>&1 otherwise process hangs
+//			String[] args = new String[] {"sqlplus", username + "/" + password + "@acad111", "@project2script" , ">/dev/null 2>&1"};
+//			Process proc = new ProcessBuilder(args).redirectErrorStream(true).start();						
+//			System.out.println("Compiling packages");
+//			args = new String[] {"sqlplus", username + "/" + password + "@acad111", "@displayTable", ">/dev/null 2>&1"};
+//			proc = new ProcessBuilder(args).redirectErrorStream(true).start();			
+
 
 			return conn;
 	}
 
 
 
-
-
+ 
 }
+
+
+
