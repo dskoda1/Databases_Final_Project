@@ -15,11 +15,8 @@ public class mydemo1 {
 
       //Connection to Oracle server
       OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
-      ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
-      //gonna wanna get user input for username and password
-	System.out.println("Acquiring connection");
-	Connection conn = ds.getConnection("dskoda1", "David926");
-	System.out.println("Connection acquired");
+      ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111"); 
+      Connection conn = ds.getConnection("jgrillo1", "Bailey25");
 
       // Query
       Statement stmt = conn.createStatement (); 
@@ -85,5 +82,3 @@ public class mydemo1 {
      catch (Exception e) {System.out.println ("\n*** other Exception caught ***\n");}
   }
 } 
-
-
