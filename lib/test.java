@@ -19,16 +19,6 @@ public class test {
 
 
 			//Try and call initialize/compile scripts
-			ScriptRunner sr = new ScriptRunner(conn, false, false);
-			
-			//Prepare the statement
-	                CallableStatement cs = conn.prepareCall("start project2script");
-	
-	                //Register the out parameter
-	                //cs.registerOutParameter(1, OracleTypes.CURSOR);
-	
-	                //Execute
-	                cs.execute();
 
 
 
@@ -155,8 +145,9 @@ public class test {
 	Acquire the users login and password for use in connecting.
 	Return the connection object to be used in queries.
 	*/
-	public static Connection validateUser() throws SQLException{
+	public static Connection validateUserAndInitializeDB() throws SQLException{
 
+			//Get the connection all set up
 			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
 			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
 			System.out.println("Username:");
@@ -169,6 +160,14 @@ public class test {
 			c = System.console();
 			String password = new String(c.readPassword());
 			Connection conn = ds.getConnection(username, password);
+
+
+			//Run the initialize scripts here
+			Runtime rt = Runtime.getRuntime();
+    	String executeSqlCommand = "sqlplus " + username + "/" + password + "@acad111 @project2script.sql";
+      Process pr = rt.exec();
+      int exitVal = pr.waitFor();
+      System.out.println("Exited with error code " + exitVal);
 
 			return conn;
 	}
