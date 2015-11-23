@@ -167,6 +167,29 @@ insert into purchases values (pur#_seq.nextval, 'e04', 'p006', 'c005', 2, to_dat
 
 insert into purchases values (pur#_seq.nextval, 'e03', 'p009', 'c008', 3, to_date('18-OCT-2015 10:54:06', 'DD-MON-YYYY HH24:MI:SS'), 134.84);
 
+insert into suppliers values ('s0', 'Dell', 'Chicago', '327-848-7633');
 
---Need tuples for suppliers here
---Need tuples for supply here, using sup#_seq
+insert into suppliers values ('s1', 'Apple', 'Washington', '424-563-2198');
+
+insert into suppliers values ('s2', 'Bic', 'Los Angeles', '543-888-9259');
+
+insert into suppliers values ('s3', 'Panasonic', 'New York', '607-456-7890');
+
+insert into suppliers values ('s4', 'LampsUSA', 'Jackson', '878-231-5961');
+
+insert into supply values (sup#_seq.nextval, 'p002', 's3', to_date('02-OCT-2015 10:56:23', 'DD-MON-YYYY HH24:MI:SS'), 123);
+
+insert into supply values (sup#_seq.nextval, 'p006', 's4', to_date('23-SEP-2015 13:15:17', 'DD-MON-YYYY HH24:MI:SS'), 54);
+
+insert into supply values (sup#_seq.nextval, 'p003', 's3', to_date('14-MAY-2015 15:17:19', 'DD-MON-YYYY HH24:MI:SS'), 21);
+
+insert into supply values (sup#_seq.nextval, 'p004', 's2', to_date('07-AUG-2015 17:19:21', 'DD-MON-YYYY HH24:MI:SS'), 250);
+
+insert into supply values (sup#_seq.nextval, 'p001', 's2', to_date('11-OCT-2015 19:21:23', 'DD-MON-YYYY HH24:MI:SS'), 88);
+
+insert into supply values (sup#_seq.nextval, 'p007', 's1', to_date('24-JUN-2015 21:23:25', 'DD-MON-YYYY HH24:MI:SS'), 12);
+
+insert into supply values (sup#_seq.nextval, 'p008', 's1', to_date('21-SEP-2015 23:24:25', 'DD-MON-YYYY HH24:MI:SS'), 5);
+
+insert into supply values (sup#_seq.nextval, 'p008', 's0', to_date('15-NOV-2015 11:12:13', 'DD-MON-YYYY HH24:MI:SS'), 6);
+
