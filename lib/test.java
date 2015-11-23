@@ -3,17 +3,17 @@ import oracle.jdbc.*;
 import java.math.*;
 import java.io.*;
 import java.awt.*;
-import oracle.jdbc.pool.oracleDataSource;
+import oracle.jdbc.pool.OracleDataSource;
+import java.util.Scanner;
+import java.io.Console;
 public class test {
 
 
 	public static void main(String args []){
 
 		try{
-			//Set up the connection
-			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
-			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
-			Connection conn = ds.getConnection("username", "pwd");
+
+			Connection conn = validateUser();			
 	
 			//Prepare the statement
 			CallableStatement cs = conn.prepareCall("begin ? := displayTable.getEmployees(); end;");
@@ -24,7 +24,12 @@ public class test {
 			//Execute
 			cs.execute();
 			ResultSet rs = (ResultSet)cs.getObject(1);
+			
+			while (rs.next()) {
+			
+				System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3));
 
+			}
 
 			//Close the rs, statement, and connection
 			cs.close();
@@ -40,4 +45,22 @@ public class test {
 			System.out.println(e.getMessage());
 		}
 	}
+
+	public static Connection validateUser() throws SQLException{
+
+			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
+			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
+			System.out.println("Username:");
+			Scanner s = new Scanner(System.in);
+			String username = s.nextLine();
+			System.out.println("Password for " + username);
+			Console c;
+			c = System.console();
+			String password = new String(c.readPassword());
+			Connection conn = ds.getConnection(username, password);
+
+			return conn;
+	}
 }
+
+
