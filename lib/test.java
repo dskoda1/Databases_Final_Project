@@ -8,10 +8,14 @@ import java.util.Scanner;
 import java.io.Console;
 import java.lang.*;
 import java.lang.ProcessBuilder;
+
+
 public class test {
 
 
 	public static void main(String args []){
+
+		Purchase p = new Purchase();
 
 		try{
 
@@ -153,6 +157,16 @@ public class test {
 		return retVal;
 
 	}
+
+	/*
+	*	Execute the 'insertRecord' package with the
+	*	appropriate function based on users choice.
+	*/
+	public static void executeInsertRecordPackage(int choice, Connection conn) throws SQLException, Exception{
+		
+		return;
+	}
+
 
 	/*
 	*	Execute the 'displayTable' package with the

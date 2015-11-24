@@ -52,25 +52,24 @@ create or replace package body insertRecord as
 	pid in purchases.pid%type,
 	cid in purchases.cid%type,
 	qty in purchases.qty%type) is
-	declare
-
+	
 		itemPrice products.original_price%type;
 		totalPrice purchases.total_price%type;
 
 	begin
-
 		select (original_price * (1 - discnt_rate))
 		into itemPrice
 		from products p
-		where p.pid = pid;
+		where p.pid = pid
+		and ROWNUM = 1;
 		
 		totalPrice := itemPrice * qty;
 	
 		insert into purchases
 		VALUES
-		(pur#_seq.NEXTVAL, eid, pid, cid, qty, SYSDATE, itemPrice);
+		(pur#_seq.NEXTVAL, eid, pid, cid, qty, SYSDATE, totalPrice);
+			
 	end;
-
 
 
 end insertRecord;
