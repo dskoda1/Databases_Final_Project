@@ -18,18 +18,28 @@ public class test {
 			Connection conn = validateUserAndInitializeDB();
 			System.out.println("Connection Successful.");
 
-
-
 			//Loop for user input
 			Scanner s = new Scanner(System.in);
+			int choice = 0;
 			while(true){
-					int choice = displayTableUserInputParser();
-					executeDisplayTablePackage(choice, conn);
-					System.out.println("Continue? 1 = yes, 0 = no.");
-					String cont = s.nextLine();
-					if(Integer.parseInt(cont) == 0){
+				choice = displayMenu();				
+				switch(choice){
+					case 1://View records from a table
+						choice = displayViewRecordsMenu();
+						executeDisplayTablePackage(choice, conn);
+						break;
+					case 2://Insert records into a table
+						choice = displayInsertRecordsMenu(); 
+						//executeInsertRecordPackage(choice, conn);
 						break;
 					}
+				
+				System.out.println("Continue? 1 = yes, 0 = no.");
+				String cont = s.nextLine();
+				if(Integer.parseInt(cont) == 0){
+					break;
+
+				}
 			}
 
 			//Close the rs, statement, and connection
@@ -46,7 +56,108 @@ public class test {
 			System.out.println(e.getMessage());
 		}
 	}
+	/*
+	*	Main menu. 
+	*/
+	public static int displayMenu(){
+		
+		//Display the menu
+		System.out.println("Please make a selection.");
+		System.out.println("\t1. View records from a table");
+		System.out.println("\t2. Insert records into a table");
+		//System.out.println... Add more options here
 
+		int retVal = parseMenuInput();
+
+		//Change these values if adding more options
+		if(retVal > 0 && retVal < 3){
+			return retVal;
+		}
+		else{
+			System.out.println("Unrecognized option");
+		}
+		return retVal;
+
+
+
+	}
+	/*
+	*	Sub menu for inserting records.
+	*/
+	public static int displayInsertRecordsMenu(){
+		
+		//Output menu
+		System.out.println("Please select a choice below. (1 - 2)");
+		System.out.println("Display records from table: ");
+		System.out.println("\t1. Products");
+		System.out.println("\t2. Purchases");
+		
+		int retVal = parseMenuInput();
+
+
+		return retVal;
+	}
+	/*
+	*	Sub menu for viewing records.
+	*/
+	public static int displayViewRecordsMenu(){
+
+		//Output menu
+		System.out.println("Please select a choice below. (1 - 6)");
+		System.out.println("Display records from table: ");
+		System.out.println("\t1. Employees");
+		System.out.println("\t2. Customers");
+		System.out.println("\t3. Products");
+		System.out.println("\t4. Suppliers");
+		System.out.println("\t5. Supply");
+		System.out.println("\t6. Purchases");
+		System.out.println("\t7. Logs");
+		
+		//Get the users input
+		int retVal = parseMenuInput();
+		
+		//Change these values if adding more options
+		if(retVal > 0 && retVal < 8){
+			return retVal;
+		}else{
+			System.out.println("Unrecognized option");
+		}
+		return retVal;
+
+
+	}
+
+	/*
+	*	Function that parses users input
+	*	to any given menu.
+	*/
+	public static int parseMenuInput(){
+
+		//Get user input
+		Scanner s = new Scanner(System.in);
+		String choice = s.nextLine();
+		int retVal = -1;
+		try{
+			if(choice != null && choice != ""){
+				retVal = Integer.parseInt(choice);
+			}
+			else{
+				retVal = -1;
+			}
+		}catch(NumberFormatException nfe){
+			//Attempted to parse a string which is not an Integer
+			retVal = -1;
+		}catch(Exception e){
+			retVal = -1;
+		}
+		return retVal;
+
+	}
+
+	/*
+	*	Execute the 'displayTable' package with the
+	*	appropriate function based on users choice.
+	*/
 	public static void executeDisplayTablePackage(int choice, Connection conn) throws SQLException, Exception{
 
 		String procedure = "";
@@ -67,7 +178,7 @@ public class test {
 			case 7: procedure = "getLogs";
 				break;
 			default:
-				System.out.println("Unrecognized option.");
+				System.out.println("Unrecognized option: " + choice);
 				return;
 		}
 
@@ -97,50 +208,11 @@ public class test {
 
 	}
 
-	public static int displayTableUserInputParser(){
-
-			//Output menu
-			System.out.println("Please select a choice below. (1 - 6)");
-			System.out.println("Display records from table: ");
-			System.out.println("\t1. Employees");
-			System.out.println("\t2. Customers");
-			System.out.println("\t3. Products");
-			System.out.println("\t4. Suppliers");
-			System.out.println("\t5. Supply");
-			System.out.println("\t6. Purchases");
-			System.out.println("\t7. Logs");
-
-			//Get user input
-			Scanner s = new Scanner(System.in);
-			String choice = s.nextLine();
-			int val = -1;
-			try{
-				if(choice != null && choice != ""){
-					val = Integer.parseInt(choice);
-				}
-				else{
-					//Could throw exception here to be handled higher up
-					//or just return
-					return -1;
-				}
-			}catch(NumberFormatException nfe){
-				//Attempted to parse a string which is not an Integer
-				return -1;
-			}catch(Exception e){
-				return -1;
-			}
-
-			if(val > 0 && val < 8){
-				return val;
-			}else{
-				return -1;
-			}
 
 
-	}
 	/*
-	Acquire the users login and password for use in connecting.
-	Return the connection object to be used in queries.
+	*	Acquire the users login and password for use in connecting.
+	*	Return the connection object to be used in queries.
 	*/
 	public static Connection validateUserAndInitializeDB() throws SQLException, IOException, InterruptedException{
 			
