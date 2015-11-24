@@ -1,12 +1,19 @@
+package classes;
 import java.lang.*;
 import java.io.*;
 import java.sql.*;
 import oracle.jdbc.*;
 import java.util.ArrayList;
-
+/*
+*	Purchase(ResultSet rs) throws SQLException
+*	ResultSet selectAll(Connection conn) throws SQLException
+*	ArrayList<Purchase> parseResultSet(ResultSet rs) throws SQLException
+*	void outputList(ArrayList<Purchase>)
+*/
 
 public class Purchase {
 
+	private String purID;
 	private String eid;
 	private String pid;
 	private String cid;
@@ -18,24 +25,34 @@ public class Purchase {
 	public Purchase(){
 		super();
 	}
-
+	/*
+	*	Take in a result set and initialize.
+	*/
 	public Purchase(ResultSet rs) throws SQLException{
-		this.eid = rs.getString(1);
-		this.pid = rs.getString(2);
-		this.cid = rs.getString(3);
-		this.qty = rs.getInt(4);
-		this.date = rs.getString(5);
-		this.total_price = rs.getFloat(6);
+		this.purID = rs.getString(1);
+		this.eid = rs.getString(2);
+		this.pid = rs.getString(3);
+		this.cid = rs.getString(4);
+		this.qty = rs.getInt(5);
+		this.date = rs.getString(6);
+		this.total_price = rs.getFloat(7);
 	}
 
+	/*
+	*	Call the getPurchases function
+	*	Return the result set obtained
+	*/
 	public ResultSet selectAll(Connection conn) throws SQLException, Exception{
 
-		CallableStatement cs = conn.prepareCall("begin ? := dislayTable.getPurchases(); end;");
+		CallableStatement cs = conn.prepareCall("begin ? := displayTable.getPurchases(); end;");
 		cs.registerOutParameter(1, OracleTypes.CURSOR);
 		cs.execute();
 		return (ResultSet)cs.getObject(1);
 	}
 
+	/*
+	*	Parse a result set into an array list of objects
+	*/
 	public ArrayList<Purchase> parseResultSet(ResultSet rs) throws SQLException{
 
 		//Loop through the result set creating a new Purchase
@@ -49,6 +66,23 @@ public class Purchase {
 
 		return elements;
 
+	}
+
+	/*
+	*	Output a list of Purchase objects to std out
+	*/
+	public void outputList(ArrayList<Purchase> pl){
+
+
+		System.out.println("PUR#\tEID\tPID\tCID\tQTY\tDATE\tTOTAL_PRICE");
+		for(Purchase p: pl){														
+		System.out.println(p.getPurID() + "\t" + p.getEid() + "\t" + p.getPid() + "\t" + p.getCid() + "\t" + p.getQty() + "\t" + p.getDate() + "\t" + p.getTotalPrice());
+		}
+
+
+	}
+	public String getPurID(){
+		return this.purID;
 	}
 
 	public String getEid(){

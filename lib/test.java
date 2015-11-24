@@ -8,7 +8,9 @@ import java.util.Scanner;
 import java.io.Console;
 import java.lang.*;
 import java.lang.ProcessBuilder;
-
+import java.util.ArrayList;
+import javax.swing.*;
+import classes.*;
 
 public class test {
 
@@ -186,8 +188,16 @@ public class test {
 			break;
 			case 5: procedure = "getSupply";
 			break;
-			case 6: procedure = "getPurchases";
-			break;
+			case 6:{
+				//old
+				//procedure = "getPurchases";
+				Purchase p = new Purchase();
+				ResultSet rs = p.selectAll(conn);
+				ArrayList<Purchase> purchases = p.parseResultSet(rs);
+				p.outputList(purchases);
+				return;
+				//break;
+			}
 			case 7: procedure = "getLogs";
 				break;
 			default:
