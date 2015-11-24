@@ -15,7 +15,6 @@ public class test {
 
 	public static void main(String args []){
 
-		Purchase p = new Purchase();
 
 		try{
 
@@ -26,18 +25,18 @@ public class test {
 			Scanner s = new Scanner(System.in);
 			int choice = 0;
 			while(true){
-				choice = displayMenu();				
+				choice = displayMenu();
 				switch(choice){
 					case 1://View records from a table
 						choice = displayViewRecordsMenu();
 						executeDisplayTablePackage(choice, conn);
 						break;
 					case 2://Insert records into a table
-						choice = displayInsertRecordsMenu(); 
+						choice = displayInsertRecordsMenu();
 						//executeInsertRecordPackage(choice, conn);
 						break;
 					}
-				
+
 				System.out.println("Continue? 1 = yes, 0 = no.");
 				String cont = s.nextLine();
 				if(Integer.parseInt(cont) == 0){
@@ -61,10 +60,10 @@ public class test {
 		}
 	}
 	/*
-	*	Main menu. 
+	*	Main menu.
 	*/
 	public static int displayMenu(){
-		
+
 		//Display the menu
 		System.out.println("Please make a selection.");
 		System.out.println("\t1. View records from a table");
@@ -89,13 +88,13 @@ public class test {
 	*	Sub menu for inserting records.
 	*/
 	public static int displayInsertRecordsMenu(){
-		
+
 		//Output menu
 		System.out.println("Please select a choice below. (1 - 2)");
 		System.out.println("Display records from table: ");
 		System.out.println("\t1. Products");
 		System.out.println("\t2. Purchases");
-		
+
 		int retVal = parseMenuInput();
 
 
@@ -116,10 +115,10 @@ public class test {
 		System.out.println("\t5. Supply");
 		System.out.println("\t6. Purchases");
 		System.out.println("\t7. Logs");
-		
+
 		//Get the users input
 		int retVal = parseMenuInput();
-		
+
 		//Change these values if adding more options
 		if(retVal > 0 && retVal < 8){
 			return retVal;
@@ -163,7 +162,7 @@ public class test {
 	*	appropriate function based on users choice.
 	*/
 	public static void executeInsertRecordPackage(int choice, Connection conn) throws SQLException, Exception{
-		
+
 		return;
 	}
 
@@ -229,7 +228,7 @@ public class test {
 	*	Return the connection object to be used in queries.
 	*/
 	public static Connection validateUserAndInitializeDB() throws SQLException, IOException, InterruptedException{
-			
+
 			//Get the connection all set up
 			oracle.jdbc.pool.OracleDataSource ds = new oracle.jdbc.pool.OracleDataSource();
 			ds.setURL("jdbc:oracle:thin:@castor.cc.binghamton.edu:1521:ACAD111");
@@ -243,7 +242,7 @@ public class test {
 			c = System.console();
 			String password = new String(c.readPassword());
 			Connection conn = ds.getConnection(username, password);
-			/*	
+			/*
 			This code below breaks the program for some reason. It definitely runs, and it does
 			run the scripts we need, but for some reason running it breaks the connection and
 			none of the packages functions work after it
@@ -258,10 +257,10 @@ public class test {
 //			System.out.println("Running init scripts");
 //			//Need to redirect to >/dev/null 2>&1 otherwise process hangs
 //			String[] args = new String[] {"sqlplus", username + "/" + password + "@acad111", "@project2script" , ">/dev/null 2>&1"};
-//			Process proc = new ProcessBuilder(args).redirectErrorStream(true).start();						
+//			Process proc = new ProcessBuilder(args).redirectErrorStream(true).start();
 //			System.out.println("Compiling packages");
 //			args = new String[] {"sqlplus", username + "/" + password + "@acad111", "@displayTable", ">/dev/null 2>&1"};
-//			proc = new ProcessBuilder(args).redirectErrorStream(true).start();			
+//			proc = new ProcessBuilder(args).redirectErrorStream(true).start();
 
 
 			return conn;
@@ -269,8 +268,5 @@ public class test {
 
 
 
- 
+
 }
-
-
-
