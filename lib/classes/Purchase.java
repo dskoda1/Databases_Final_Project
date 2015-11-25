@@ -73,8 +73,8 @@ public class Purchase {
 	*/
 	public void outputList(ArrayList<Purchase> pl){
 
-
-		System.out.println("PUR#\tEID\tPID\tCID\tQTY\tDATE\tTOTAL_PRICE");
+											
+		System.out.println("PUR#\tEID\tPID\tCID\tQTY\tDATE\t\tTOTAL_PRICE");
 		for(Purchase p: pl){														
 		System.out.println(p.getPurID() + "\t" + p.getEid() + "\t" + p.getPid() + "\t" + p.getCid() + "\t" + p.getQty() + "\t" + p.getDate() + "\t" + p.getTotalPrice());
 		}

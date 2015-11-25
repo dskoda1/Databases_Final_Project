@@ -13,7 +13,7 @@ import javax.swing.*;
 import classes.*;
 
 public class test {
-
+	public static boolean debug = true;
 
 	public static void main(String args []){
 
@@ -21,8 +21,8 @@ public class test {
 		try{
 
 			Connection conn = validateUserAndInitializeDB();
-			System.out.println("Connection Successful.");
-
+			
+			
 			//Loop for user input
 			Scanner s = new Scanner(System.in);
 			int choice = 0;
@@ -35,10 +35,13 @@ public class test {
 						break;
 					case 2://Insert records into a table
 						choice = displayInsertRecordsMenu();
-						//executeInsertRecordPackage(choice, conn);
+						try{//want to catch this exception inside executeInsertRecordPackage.
+						//Seems to be a nullPointerException from the parseInt call, not sure though
+							executeInsertRecordPackage(choice, conn);
+						}catch(Exception e){e.printStackTrace();}
 						break;
 					}
-
+				//Need some exception handling here to ensure input is valid- 1 or 0
 				System.out.println("Continue? 1 = yes, 0 = no.");
 				String cont = s.nextLine();
 				if(Integer.parseInt(cont) == 0){
@@ -52,12 +55,13 @@ public class test {
 			conn.close();
 
 
-
+		//Should rarely go to these catch blocks.. want to keep exceptions contained
+		//to the level below main. So that execution can continue, not end.
 		}catch(SQLException se){
-			se.printStackTrace();
+			System.out.println ("\n*** SQLException caught ***\n");
 			System.out.println(se.getMessage());
 		}catch(Exception e){
-			e.printStackTrace();
+			System.out.println ("\n*** Exception caught ***\n");
 			System.out.println(e.getMessage());
 		}
 	}
@@ -93,14 +97,19 @@ public class test {
 
 		//Output menu
 		System.out.println("Please select a choice below. (1 - 2)");
-		System.out.println("Display records from table: ");
+		System.out.println("Insert a record into table: ");
 		System.out.println("\t1. Products");
 		System.out.println("\t2. Purchases");
 
 		int retVal = parseMenuInput();
-
-
+		if(retVal > 0 && retVal < 3)
+		{
+			return retVal;
+		}else{
+			System.out.println("Unrecognized option");
+		}
 		return retVal;
+		
 	}
 	/*
 	*	Sub menu for viewing records.
@@ -163,12 +172,81 @@ public class test {
 	*	Execute the 'insertRecord' package with the
 	*	appropriate function based on users choice.
 	*/
-	public static void executeInsertRecordPackage(int choice, Connection conn) throws SQLException, Exception{
+	public static void executeInsertRecordPackage(int choice, Connection conn){
+		Scanner s = new Scanner(System.in);
+		String in = "", exec;
+		CallableStatement cs = null;
+		int val = 0;
+		/*
+		*	Need some input from the user here based on choice.
+		*	1. insertRecord.addProduct(string pid, string pname, int qoh,
+		*	int qoh_threshold, double original_price, double discnt_rate)
+		*	2. insertRecord.addPurchase(string eid, string pid, string cid, int qty)
+		*/
+		
+
+		try{
+
+			System.out.println("\nPlease provide the following information: \n");
+			if(choice == 1){
+			
+			}else if (choice == 2){
+				String eid, pid, cid;
+				int qty;			
+				
+				//eid
+				System.out.println("Employee ID in the form 'e03': ");
+				eid = s.nextLine();
+	
+				//pid
+				System.out.println("\nProduct ID in the form 'p006': ");
+				pid = s.nextLine();
+				
+				//cid
+				System.out.println("\nCustomer ID in the form 'c001': ");
+				cid = s.nextLine();
+				
+				//qty
+				System.out.println("\nQuantity purchased as a number: ");
+				try{
+				qty = Integer.parseInt(s.nextLine());
+				}catch(NumberFormatException nfe){
+					System.out.println("\n*** Invalid number given for quantity value when attempting to -Insert Purchase Record-. Please try again with an 'integer' value.");
+					return;			
+				}//I think this is where the nullPointerException is being thrown
+				//Create the statement to be executed
+				cs = conn.prepareCall("begin insertRecord.addPurchase(?, ?, ?, ?); end;");
+				cs.setString(1, eid);
+				cs.setString(2, pid);
+				cs.setString(3, cid);
+				cs.setInt(4, qty);
+					
+			}
+
+			//Execute the statement now
+			cs.execute();
+		
+		}catch(SQLException se){
+                        System.out.println ("\n*** SQLException caught when attempting to insert a record ***\n");
+                        System.out.println(se.getMessage());
+			return;
+		}catch(Exception e){
+                        System.out.println ("\n*** Exception caught when attempting to insert a record ***\n");
+                        System.out.println(e.getMessage());
+			return;
+                }
+		finally{
+			try{
+				cs.close();
+			}catch(SQLException se){
+			System.out.println("Error closing the callable statement in insert record");}
+		
+		}
+
+		System.out.println("\nInsert executed successfully!\n");
 
 		return;
 	}
-
-
 	/*
 	*	Execute the 'displayTable' package with the
 	*	appropriate function based on users choice.
@@ -220,6 +298,10 @@ public class test {
 		//Need to decide how to parse the result set based on which table it is.
 		//This only supports getting the first 3 columns of whatever table is queried.
 		//Need to talk about design choice here, couple of options available
+
+		//Purchases has a POJO that handles this, as seen above in case 6 of the switch. I think creating some 
+		//kind of dictionary that correlates table: # columns could allow the use of a loop for output of data.
+		//Doesn't cover the name of columns tho, could use another dictionary/map for that?
 		while (rs.next()) {
 
 			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3));
@@ -252,6 +334,8 @@ public class test {
 			c = System.console();
 			String password = new String(c.readPassword());
 			Connection conn = ds.getConnection(username, password);
+			System.out.println("\nConnection Successful.\n\n");
+			
 			/*
 			This code below breaks the program for some reason. It definitely runs, and it does
 			run the scripts we need, but for some reason running it breaks the connection and
