@@ -16,7 +16,8 @@ From the lib directory run these commands
 -Display records for rest of tables w/o labels
 
 -Insert record into purchases table
-  
+
+#####-Create all triggers for logs table  
 
 ####*Still under construction*
 
@@ -25,8 +26,6 @@ From the lib directory run these commands
 -Insert record into products table
 
 -Display monthly sale report for any product
-
-#####-Create all triggers for logs table
 
 -More to come..
 
