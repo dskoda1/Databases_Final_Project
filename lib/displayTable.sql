@@ -13,6 +13,8 @@ function getSupply
 	return ref_cursor;
 function getPurchases
 	return ref_cursor;
+function getLogs
+	return ref_cursor;
 end displayTable; 
 /
 show errors
@@ -63,6 +65,14 @@ function getPurchases
 	begin
 		open rc for
 		select * from purchases;
+		return rc;
+	end;
+
+function getLogs
+	return ref_cursor as rc ref_cursor;
+	begin
+		open rc for
+		select * from logs;
 		return rc;
 	end;
 
