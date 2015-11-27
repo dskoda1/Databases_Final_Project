@@ -17,7 +17,7 @@ From the lib directory run these commands
 
 -Insert record into purchases table
 
-#####-Create all triggers for logs table  
+-Create all triggers for q4
 
 ####*Still under construction*
 
