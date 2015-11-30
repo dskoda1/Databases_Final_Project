@@ -3,10 +3,10 @@
 ### Compilation
 From the lib directory run these commands
 
-    javac -cp .:ojdbc6.jar test.java classes/*.java
+    javac -cp .:ojdbc.jar Main.java classes/*.java
 ###### then
 
-    java -cp .:ojdbc6.jar test classes/*class
+    java -cp .:ojdbc.jar Main classes/*.class
 
 ### Functionality
 ####*Completed*

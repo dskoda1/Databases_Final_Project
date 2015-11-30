@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import javax.swing.*;
 import classes.*;
 
-public class test {
+public class Main {
 	public static boolean debug = false;
 
 	public static void main(String args []){
