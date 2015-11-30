@@ -15,17 +15,26 @@ From the lib directory run these commands
 
 -Display records for rest of tables w/o labels
 
--Insert record into purchases table
+-Insert record into purchases and products table(q4, q6)
 
--Create all triggers for q4
+-Triggers for q5
 
 ####*Still under construction*
 
--Display labels for rest of tables display records
-
--Insert record into products table
+-Display labels for rest of tables when displaying records
 
 -Display monthly sale report for any product
+
+-Test triggers for q5
+
+#####-Side effects for purchases (q7):
+
+-update product
+
+-update customer
+
+-possible insert into supply
+
 
 -More to come..
 
