@@ -378,8 +378,14 @@ public class test {
 				return;
 				//break;
 			}
-			case 7: procedure = "getLogs";
-				break;
+			case 7:{
+				//procedure = "getLogs";
+				Log l = new Log();
+				ResultSet rs = l.selectAll(conn);
+				ArrayList<Log> logs = l.parseResultSet(rs);
+				l.outputList(logs);
+				return;
+			}
 			default:
 				System.out.println("Unrecognized option: " + choice);
 				return;
