@@ -13,10 +13,9 @@ import javax.swing.*;
 import classes.*;
 
 public class test {
-	public static boolean debug = true;
+	public static boolean debug = false;
 
 	public static void main(String args []){
-
 
 		try{
 
@@ -35,10 +34,7 @@ public class test {
 						break;
 					case 2://Insert records into a table
 						choice = displayInsertRecordsMenu();
-						try{//want to catch this exception inside executeInsertRecordPackage.
-						//Seems to be a nullPointerException from the parseInt call, not sure though
-							executeInsertRecordPackage(choice, conn);
-						}catch(Exception e){e.printStackTrace();}
+						executeInsertRecordPackage(choice, conn);
 						break;
 					}
 				//Need some exception handling here to ensure input is valid- 1 or 0
@@ -189,7 +185,61 @@ public class test {
 
 			System.out.println("\nPlease provide the following information: \n");
 			if(choice == 1){
+				String pid, pname;
+				int qoh, qohThreshold;
+				double originalPrice, discntRate;
+
+				//pid
+				System.out.println("\nNew product id in the form 'p003': ");
+				pid = s.nextLine();
+				//pname
+				System.out.println("\nNew product's name: ");
+				pname= s.nextLine();
 			
+				//qoh
+				System.out.println("\nNew product's current quantity on hand: ");
+				try{
+				qoh = Integer.parseInt(s.nextLine());
+				}catch(NumberFormatException nfe){
+					System.out.println("\n*** Invalid number given for QOH value when attempting to -Insert Product Record-. Please try again with an 'integer' value.");
+					return;			
+				}
+				//qoh threshold
+				System.out.println("New product's quantity on hand threshold: ");
+				try{
+				qohThreshold= Integer.parseInt(s.nextLine());
+				}catch(NumberFormatException nfe){
+					System.out.println("\n*** Invalid number given for QOH Threshold value when attempting to -Insert Product Record-. Please try again with an 'integer' value.");
+					return;			
+				}
+
+				//orig price
+				System.out.println("\nNew product's price in the form '24.99' or just '24': ");
+				try{
+				originalPrice = Double.parseDouble(s.nextLine());
+				}catch(NumberFormatException nfe){
+					System.out.println("\n*** Invalid number given for original price when attempting to -Insert Product Record-. Please try again with an 'double' value in the form '24.00' or just '24'.");
+					return;			
+				}
+
+				//discount rate
+				System.out.println("\nNew product's discount rate in the form '0.3' or just '.3'. Must be between 0 and 0.8: ");
+				try{
+				discntRate = Double.parseDouble(s.nextLine());
+				}catch(NumberFormatException nfe){
+					System.out.println("\n*** Invalid number given for discount rate when attempting to -Insert Product Record-. Please try again with an 'double' value in the form '0.3'.");
+					return;			
+				}
+				//Create and prepare the call
+				cs = conn.prepareCall("begin insertRecord.addProduct(?, ?, ?, ?, ?, ?); end;");
+				cs.setString(1, pid);
+				cs.setString(2, pname);
+				cs.setInt(3, qoh);
+				cs.setInt(4, qohThreshold);
+				cs.setDouble(5, originalPrice);
+				cs.setDouble(6, discntRate);
+
+	
 			}else if (choice == 2){
 				String eid, pid, cid;
 				int qty;			
@@ -213,8 +263,9 @@ public class test {
 				}catch(NumberFormatException nfe){
 					System.out.println("\n*** Invalid number given for quantity value when attempting to -Insert Purchase Record-. Please try again with an 'integer' value.");
 					return;			
-				}//I think this is where the nullPointerException is being thrown
-				//Create the statement to be executed
+				}
+				
+				//Create and prepare the call
 				cs = conn.prepareCall("begin insertRecord.addPurchase(?, ?, ?, ?); end;");
 				cs.setString(1, eid);
 				cs.setString(2, pid);
@@ -230,6 +281,9 @@ public class test {
                         System.out.println ("\n*** SQLException caught when attempting to insert a record ***\n");
                         System.out.println(se.getMessage());
 			return;
+		}catch(NullPointerException npe){
+			System.out.println("\n*** Null Pointer Exception caught when attempting to insert a record ***\n");
+			return;
 		}catch(Exception e){
                         System.out.println ("\n*** Exception caught when attempting to insert a record ***\n");
                         System.out.println(e.getMessage());
@@ -237,10 +291,16 @@ public class test {
                 }
 		finally{
 			try{
-				cs.close();
+				if(cs != null){
+					cs.close();
+				}
 			}catch(SQLException se){
-			System.out.println("Error closing the callable statement in insert record");}
-		
+			System.out.println("Error closing the callable statement in insert record");
+			}catch(NullPointerException npe){
+			System.out.println("\n*** Null Pointer Exception caught when attempting to insert a record ***\n");
+			System.out.println("Error closing the callable statement in insert record");
+			return;
+			}
 		}
 
 		System.out.println("\nInsert executed successfully!\n");
