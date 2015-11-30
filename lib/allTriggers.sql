@@ -1,3 +1,9 @@
+--this package is used for question 5
+--whenever there is an insert into either purchases or supply
+--we will also insert into the logs table
+--whenever we update qoh or visits made
+--we will also insert into the logs table
+
 create or replace trigger insertPurchaseTrigger
 after insert on purchases
 FOR EACH ROW

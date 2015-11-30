@@ -1,3 +1,4 @@
+--this package is used to insert into the employee, product, and purchases tables
 create or replace package insertRecord as
 	procedure employee
 	(eid in employees.eid%type,

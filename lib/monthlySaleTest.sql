@@ -1,3 +1,6 @@
+--this file is used to determine if the query in monthlySale is
+--working properly
+--not working properly expecting into clause
 declare
 	pid_in products.pid%type;
 begin

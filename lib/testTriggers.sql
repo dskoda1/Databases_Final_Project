@@ -1,3 +1,6 @@
+--this file is used to test whether or not the triggers for q5 are working
+--here we try to insert/update values to make sure entries are being added to
+--the logs table
 insert into logs values
 (log#_seq.nextval, user, sysdate, 'purchases', 'insert', pur#_seq.nextval);
 

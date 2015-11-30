@@ -1,3 +1,4 @@
+--this package is used to display all of the tables through our java code
 create or replace package displayTable as
 type ref_cursor is ref cursor;
 

@@ -6,7 +6,7 @@
 	3. Create tables
 	4. Create sequences
 	5. Insert tuples
-	6. Create triggers
+	6. Create triggers- triggers not created in this file
 */
 
 drop sequence log#_seq;
@@ -22,7 +22,7 @@ drop table products;
 drop table customers;
 drop table employees;
 
-
+--now that everything is dropped we will create
 
 
 create table employees
@@ -94,7 +94,7 @@ create sequence log#_seq
 start with 10000
 increment by 1;
 
-
+--begin inserting into all of the tables
 insert into employees values ('e01', 'Peter', '666-555-1234');
 
 insert into employees values ('e02', 'David', '777-555-2341');
