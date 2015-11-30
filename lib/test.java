@@ -390,35 +390,6 @@ public class test {
 				System.out.println("Unrecognized option: " + choice);
 				return;
 		}
-
-
-		//Prepare the statement
-		CallableStatement cs = conn.prepareCall("begin ? := displayTable." + procedure + "(); end;");
-
-		//Register the out parameter
-		cs.registerOutParameter(1, OracleTypes.CURSOR);
-
-		//Execute
-		cs.execute();
-		ResultSet rs = (ResultSet)cs.getObject(1);
-
-
-		//Need to decide how to parse the result set based on which table it is.
-		//This only supports getting the first 3 columns of whatever table is queried.
-		//Need to talk about design choice here, couple of options available
-
-		//Purchases has a POJO that handles this, as seen above in case 6 of the switch. I think creating some 
-		//kind of dictionary that correlates table: # columns could allow the use of a loop for output of data.
-		//Doesn't cover the name of columns tho, could use another dictionary/map for that?
-		while (rs.next()) {
-
-			System.out.println(rs.getString(1) + "\t" + rs.getString(2) + "\t" + rs.getString(3));
-
-		}
-
-		cs.close();
-		return;
-
 	}
 
 
