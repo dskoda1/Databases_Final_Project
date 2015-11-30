@@ -35,44 +35,33 @@ public class Product {
 	*	Return the result set obtained
 	*/
 	public ResultSet selectAll(Connection conn) throws SQLException, Exception{
-
 		CallableStatement cs = conn.prepareCall("begin ? := displayTable.getProducts(); end;");
 		cs.registerOutParameter(1, OracleTypes.CURSOR);
 		cs.execute();
 		return (ResultSet)cs.getObject(1);
 	}
-
 	/*
 	*	Parse a result set into an array list of objects
 	*/
 	public ArrayList<Product> parseResultSet(ResultSet rs) throws SQLException{
-
-		//Loop through the result set creating a new Purchase
+		//Loop through the result set creating a new Product
 		//object and pushing it onto the arrays
 		ArrayList<Product> elements = new ArrayList<Product>();
 		while(rs.next()){
-
 			elements.add(new Product(rs));
-
 		}
-
 		return elements;
-
 	}
 	/*
-	*	Output a list of Purchase objects to std out
+	*	Output a list of Product objects to std out
 	*/
-	public void outputList(ArrayList<Product> pl){
-
-											
+	public void outputList(ArrayList<Product> pl){									
 		System.out.println("PID\tPNAME\tQOH\tQOH_THRESHOLD\tORGINIAL_PRICE\tDISCNT_RATE");
 		for(Product p: pl){														
-		System.out.println(p.getPid() + "\t" + p.getPname() + "\t" + p.getQoh() + "\t" + p.getQohThreshold() + "\t" + p.getOriginalPrice() + "\t" + p.getDiscntRate());
+			System.out.println(p.getPid() + "\t" + p.getPname() + "\t" + p.getQoh() + "\t" + p.getQohThreshold() + "\t" + p.getOriginalPrice() + "\t" + p.getDiscntRate());
 		}
-
-
 	}
-
+	//accessors
 	public String getPid(){
 		return this.pid;
 	}
