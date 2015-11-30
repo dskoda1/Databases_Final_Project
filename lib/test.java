@@ -113,7 +113,7 @@ public class test {
 	public static int displayViewRecordsMenu(){
 
 		//Output menu
-		System.out.println("Please select a choice below. (1 - 6)");
+		System.out.println("Please select a choice below. (1 - 7)");
 		System.out.println("Display records from table: ");
 		System.out.println("\t1. Employees");
 		System.out.println("\t2. Customers");
@@ -316,16 +316,58 @@ public class test {
 		String procedure = "";
 
 		switch(choice){
-			case 1: procedure = "getEmployees";
-			break;
-			case 2: procedure = "getCustomers";
-			break;
-			case 3: procedure = "getProducts";
-			break;
-			case 4: procedure = "getSuppliers";
-			break;
-			case 5: procedure = "getSupply";
-			break;
+			case 1:{
+				//oldy
+				//procedure = "getEmployees";
+				Employee e = new Employee();
+				ResultSet rs = e.selectAll(conn);
+				ArrayList<Employee> employees = e.parseResultSet(rs);
+				e.outputList(employees);
+				return;
+				//break;
+			}
+			case 2:{
+				//old line
+				//procedure = "getCustomers";
+				//new
+				Customer c = new Customer();
+				ResultSet rs = c.selectAll(conn);
+				ArrayList<Customer> customers = c.parseResultSet(rs);
+				c.outputList(customers);
+				return;
+				//break;
+			}
+			case 3:{
+				//OLD
+				//procedure = "getProducts";
+				Product p = new Product();
+				ResultSet rs = p.selectAll(conn);
+				ArrayList<Product> products = p.parseResultSet(rs);
+				p.outputList(products);
+				return;
+				//break;
+			}
+
+			case 4:{
+				//out with the old
+				//procedure = "getSuppliers";
+				Supplier s = new Supplier();
+				ResultSet rs = s.selectAll(conn);
+				ArrayList<Supplier> suppliers = s.parseResultSet(rs);
+				s.outputList(suppliers);
+				return;
+				//break;
+			}
+			case 5: {
+				//old
+				//procedure = "getSupply";
+				Supply s = new Supply();
+				ResultSet rs = s.selectAll(conn);
+				ArrayList<Supply> supplies = s.parseResultSet(rs);
+				s.outputList(supplies);
+				return;
+				//break;
+			}
 			case 6:{
 				//old
 				//procedure = "getPurchases";
@@ -400,7 +442,6 @@ public class test {
 			This code below breaks the program for some reason. It definitely runs, and it does
 			run the scripts we need, but for some reason running it breaks the connection and
 			none of the packages functions work after it
-
 			I think were gonna just need to run project2script and compile any packages from
 			inside sqlplus when we demo, and before we try and run our code here when we add to
 			the packages.
