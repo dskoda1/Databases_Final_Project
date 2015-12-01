@@ -11,32 +11,21 @@ From the lib directory run these commands
 ### Functionality
 ####*Completed*
 
--Display records in purchases table w/ labels
-
--Display records for rest of tables w/o labels
+-Display records from any table w/ labels
 
 -Insert record into purchases and products table(q4, q6)
 
 -Triggers for q5
 
-####*Still under construction*
-
--Display labels for rest of tables when displaying records
-
 -Display monthly sale report for any product
 
--Test triggers for q5
-
-#####-Side effects for purchases (q7):
-
--update product
-
--update customer
-
--possible insert into supply
+-side effects for purchases
 
 
--More to come..
+####*Still under construction*
+
+-update customer last visit date
+
 
 
 
