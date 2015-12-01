@@ -16,41 +16,68 @@ public class Product {
 	private String pid, pname;
 	private int qoh, qoh_threshold;
 	private float original_price, discnt_rate;
-	
+
 	public Product(){
 		super();
 	}
-	
-	public Product(String pid_in, Connection con){
+
+	public Product(String pid_in, Connection con) throws SQLException{
+		//Check for null or empty string
+		if(pid_in == "" || pid_in == null){
+			throw new SQLException("PID passed is null or empty.");
+		}
+
 		Statement stmt = null;
-		String query = "select * from products where pid = pid_in";
+		System.out.println("PID passed to product contstructor is: " + pid_in);
+		//Create the query
+		StringBuilder sql = new StringBuilder();
+		sql.append("select * ");
+		sql.append("from products p ");
+		sql.append("where p.pid = '" + pid_in + "'");
+
+		System.out.println("Query built is: \n");
+		System.out.println(sql);
 		try{
 			stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery(query);
-			rs.next();
-			this.pid = rs.getString(1);
-			this.pname = rs.getString(2);
-			this.qoh = rs.getInt(3);
-			this.qoh_threshold = rs.getInt(4);
-			this.original_price = rs.getFloat(5);
-			this.discnt_rate = rs.getFloat(6);
-			if(this.pid != pid_in){
-				throw new SQLException("Unable to find product with pid: " + pid_in);
+			ResultSet rs = stmt.executeQuery(sql.toString());
+			if(rs.next())
+					{
+					this.pid = rs.getString(1);
+					this.pname = rs.getString(2);
+					this.qoh = rs.getInt(3);
+					this.qoh_threshold = rs.getInt(4);
+					this.original_price = rs.getFloat(5);
+					this.discnt_rate = rs.getFloat(6);
+					System.out.println("PID of product obtained: " + this.pid);
+					}//Ensure the product selected was correct
+					if(this.pid == null || !this.pid.equalsIgnoreCase(pid_in))
+					{
+					throw new SQLException("Unable to find product with pid: " + pid_in);
+					}
 			}
-		}
-		catch(SQLException e){
-			System.out.println ("\n*** SQLException caught when attempting to call "
-					+ "product constructor with string pid ***\n");
-            System.out.println(e.getMessage());
-		}
-		finally{
-			if(stmt != null){ stmt.close();}
-		}
+			catch(SQLException e)
+			{
+				System.out.println ("\n*** SQLException caught when attempting to call "
+				+ "product constructor with string pid ***\n");
+				System.out.println(e.getMessage());
+				throw e;
+			}
+			finally{
+				if(stmt != null){
+				try{ 	
+					stmt.close();
+					}catch(SQLException e){
+						System.out.println ("\n*** SQLException caught when attempting to call product constructor with string pid ***\n");
+						System.out.println(e.getMessage());
+						throw e;
+					}
+				}
+			}
 	}
 
 	/*
-	*	Take in a result set and initialize.
-	*/
+	 *	Take in a result set and initialize.
+	 */
 	public Product(ResultSet rs) throws SQLException{
 		this.pid = rs.getString(1);
 		this.pname = rs.getString(2);
@@ -59,11 +86,11 @@ public class Product {
 		this.original_price = rs.getFloat(5);
 		this.discnt_rate = rs.getFloat(6);
 	}
-	
+
 	/*
-	*	Call the getProduct function
-	*	Return the result set obtained
-	*/
+	 *	Call the getProduct function
+	 *	Return the result set obtained
+	 */
 	public ResultSet selectAll(Connection conn) throws SQLException, Exception{
 		CallableStatement cs = conn.prepareCall("begin ? := displayTable.getProducts(); end;");
 		cs.registerOutParameter(1, OracleTypes.CURSOR);
@@ -71,8 +98,8 @@ public class Product {
 		return (ResultSet)cs.getObject(1);
 	}
 	/*
-	*	Parse a result set into an array list of objects
-	*/
+	 *	Parse a result set into an array list of objects
+	 */
 	public ArrayList<Product> parseResultSet(ResultSet rs) throws SQLException{
 		//Loop through the result set creating a new Product
 		//object and pushing it onto the arrays
@@ -83,8 +110,8 @@ public class Product {
 		return elements;
 	}
 	/*
-	*	Output a list of Product objects to std out
-	*/
+	 *	Output a list of Product objects to std out
+	 */
 	public void outputList(ArrayList<Product> pl){									
 		System.out.println("PID\tPNAME\tQOH\tQOH_THRESHOLD\tORGINIAL_PRICE\tDISCNT_RATE");
 		for(Product p: pl){														
@@ -112,5 +139,5 @@ public class Product {
 	}
 
 
-	
+
 }
