@@ -36,6 +36,9 @@ public class Main {
 						choice = displayInsertRecordsMenu();
 						executeInsertRecordPackage(choice, conn);
 						break;
+					case 3://Report Monthly Sales
+						executeMonthlySale(conn);
+						break;
 					}
 				//Need some exception handling here to ensure input is valid- 1 or 0
 				System.out.println("Continue? 1 = yes, 0 = no.");
@@ -70,12 +73,13 @@ public class Main {
 		System.out.println("Please make a selection.");
 		System.out.println("\t1. View records from a table");
 		System.out.println("\t2. Insert records into a table");
+		System.out.println("\t3. Monthly sales report of a product");
 		//System.out.println... Add more options here
 
 		int retVal = parseMenuInput();
 
 		//Change these values if adding more options
-		if(retVal > 0 && retVal < 3){
+		if(retVal > 0 && retVal < 4){
 			return retVal;
 		}
 		else{
@@ -163,7 +167,51 @@ public class Main {
 		return retVal;
 
 	}
+	/*
+	 * execute the monthlySale package with a given input
+	 * value of the users choice
+	 */
+	public static void executeMonthlySale(Connection conn){
+		Scanner s = new Scanner(System.in);
+		CallableStatement cs = null;
+		//report_monthly_sale(pid)
+		try{
+			System.out.println("\nPlease provide a product ID to get monthly sales report: \n");
+			String pid;
+			pid = s.nextLine();
 
+			monthlySale e = new monthlySale();
+			ResultSet rs = e.selectAll(pid, conn);
+			ArrayList<monthlySale> monthlySales = e.parseResultSet(rs);
+			e.outputList(monthlySales);
+			return;
+		}
+		catch(SQLException se){
+			System.out.println ("\n*** SQLException caught when attempting to report monthly sale ***\n");
+			System.out.println(se.getMessage());
+			return;
+		}catch(NullPointerException npe){
+			System.out.println("\n*** Null Pointer Exception caught when attempting to report monthly sale ***\n");
+			return;
+		}catch(Exception e){
+			System.out.println ("\n*** Exception caught when attempting to report monthly sale ***\n");
+			System.out.println(e.getMessage());
+			return;
+		}
+		finally{
+			try{
+				if(cs != null){
+					cs.close();
+				}
+			}catch(SQLException se){
+				System.out.println("Error closing the callable statement in monthly sale report");
+			}catch(NullPointerException npe){
+				System.out.println("\n*** Null Pointer Exception caught when attempting to report monthly sale ***\n");
+				System.out.println("Error closing the callable statement in report monthly sale");
+				return;
+			}
+		}
+	}
 	/*
 	*	Execute the 'insertRecord' package with the
 	*	appropriate function based on users choice.
@@ -313,7 +361,7 @@ public class Main {
 	*/
 	public static void executeDisplayTablePackage(int choice, Connection conn) throws SQLException, Exception{
 
-		String procedure = "";
+	//	String procedure = "";
 
 		switch(choice){
 			case 1:{

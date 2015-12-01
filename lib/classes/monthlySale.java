@@ -34,8 +34,9 @@ public class monthlySale {
 	*	Call the getmonthlySale function
 	*	Return the result set obtained
 	*/
-	public ResultSet selectAll(Connection conn) throws SQLException, Exception{
-		CallableStatement cs = conn.prepareCall("begin ? := displayTable.getmonthlySales(); end;");
+	public ResultSet selectAll(String pid, Connection conn) throws SQLException, Exception{
+		CallableStatement cs = conn.prepareCall("begin ? := monthlySale.report_monthly_sale(?); end;");		
+		cs.setString(2, pid);
 		cs.registerOutParameter(1, OracleTypes.CURSOR);
 		cs.execute();
 		return (ResultSet)cs.getObject(1);

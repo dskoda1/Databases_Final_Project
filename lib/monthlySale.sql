@@ -20,8 +20,16 @@ create or replace package body monthlySale as
 	function report_monthly_sale
 	(pid_in in products.pid%type) 
 	return ref_cursor as rc ref_cursor;
-	
+	countPid number(6);
 	begin
+		if (pid_in is NULL) then
+			raise_application_error(-20625, 'Product ID is null.');
+		end if;
+		select count(*) into countPid from products where pid = pid_in;
+		if (countPid < 1) then 
+			raise_application_error(-20123, 'There is no product with that pid.');
+		end if;
+			
 		open rc for
 	 	select 	pname, 
 			to_char(ptime, 'MON') as Month, 

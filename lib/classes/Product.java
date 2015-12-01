@@ -2,7 +2,9 @@ package classes;
 import java.lang.*;
 import java.io.*;
 import java.sql.*;
+
 import oracle.jdbc.*;
+
 import java.util.ArrayList;
 /**
  * Product(ResultSet rs) throws SQLException
@@ -18,6 +20,34 @@ public class Product {
 	public Product(){
 		super();
 	}
+	
+	public Product(String pid_in, Connection con){
+		Statement stmt = null;
+		String query = "select * from products where pid = pid_in";
+		try{
+			stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery(query);
+			rs.next();
+			this.pid = rs.getString(1);
+			this.pname = rs.getString(2);
+			this.qoh = rs.getInt(3);
+			this.qoh_threshold = rs.getInt(4);
+			this.original_price = rs.getFloat(5);
+			this.discnt_rate = rs.getFloat(6);
+			if(this.pid != pid_in){
+				throw new SQLException("Unable to find product with pid: " + pid_in);
+			}
+		}
+		catch(SQLException e){
+			System.out.println ("\n*** SQLException caught when attempting to call "
+					+ "product constructor with string pid ***\n");
+            System.out.println(e.getMessage());
+		}
+		finally{
+			if(stmt != null){ stmt.close();}
+		}
+	}
+
 	/*
 	*	Take in a result set and initialize.
 	*/
