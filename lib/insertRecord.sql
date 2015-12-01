@@ -25,7 +25,9 @@ end insertRecord;
 /
 
 create or replace package body insertRecord as
-
+	--used to insert employees into the database
+	--need to take in employee info
+	--not actually using in java interface
         procedure employee
         (eid in employees.eid%type,
         name in employees.ename%type,
@@ -35,7 +37,8 @@ create or replace package body insertRecord as
                 VALUES
                 (eid, name, phone#);
         end;
-
+	--insert products into products table
+	--need to take in arguments and then verify args
 	procedure addProduct
 	(pid in products.pid%type,
 	pname in products.pname%type,
@@ -85,7 +88,9 @@ create or replace package body insertRecord as
 			raise_application_error(-20999, 'SQL Exception caught. See below for details.', true);
 
 	end;
-
+	--insert a new purchase into the purchases table
+	--once again need to take in proper arguments and verify
+	--that those arguments are correct
 	procedure addPurchase
 	(eid in purchases.eid%type,
 	pid in purchases.pid%type,

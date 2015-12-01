@@ -21,7 +21,8 @@ end displayTable;
 show errors
 
 create or replace package body displayTable as
-
+--for each function we simply want to open the ref cursor
+--and run a query to select all from the proper table
 function getEmployees
 	return ref_cursor as rc ref_cursor;
 	begin

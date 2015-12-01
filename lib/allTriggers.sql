@@ -4,6 +4,9 @@
 --whenever we update qoh or visits made
 --we will also insert into the logs table
 
+
+--want to insert into logs table whenever after a new purchase is made
+--also need ot check qoh, if needed order supply 
 create or replace trigger insertPurchaseTrigger
 after insert on purchases
 FOR EACH ROW
@@ -80,6 +83,8 @@ begin
 end; 
 /
 show err;
+
+--here we want to add a new entry to the log table after qoh is updated
 create or replace trigger updateQohTrigger
 after update of qoh on products
 for each row
@@ -90,6 +95,7 @@ begin
 end;
 /
 
+--want to insert into logs table after visits_made is updated
 create or replace trigger updateVisitsMadeTrigger
 after update of visits_made on customers
 for each row
@@ -99,7 +105,7 @@ begin
 	(log#_seq.nextval, user, sysdate, 'customers', 'update', :NEW.cid);
 end;
 /
-
+--want to insert into logs table after a new supply is inserted
 create or replace trigger insertSupplyTrigger
 after insert on supply
 for each row
@@ -120,10 +126,3 @@ begin
 end;
 /
 show err
-
-
-
-
-
-
-
