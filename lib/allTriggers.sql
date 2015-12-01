@@ -75,7 +75,8 @@ begin
 		(sup#_seq.nextval, ppid, supplierId, sysdate, qohNeeded);
 	end if;
 	
-	
+	--Check if customers last visit date is same or not same as today
+	--Update if necessary	
 end; 
 /
 show err;
