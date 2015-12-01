@@ -127,7 +127,6 @@ create or replace package body insertRecord as
 		--Find the row in products requested for purchase
 		--This is the workaround to the too_many_rows error 
 		open prodCurs;
-		dbms_output.put_line(prodCurs%rowcount);
 		loop
 			fetch prodCurs into prodRec;
 			exit when prodCurs%notfound;

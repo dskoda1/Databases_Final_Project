@@ -121,23 +121,23 @@ insert into customers values ('c007', 'Katie', '888-555-6574', 1, '12-OCT-15');
 
 insert into customers values ('c008', 'Joe', '666-555-5746', 1, '18-OCT-15');
 
-insert into products values ('p001', 'stapler', 60, 20, 9.99, 0.1);
+insert into products values ('p001', 'stapler', 40, 20, 9.99, 0.1);
 
-insert into products values ('p002', 'TV', 6, 5, 249, 0.15);
+insert into products values ('p002', 'TV', 7, 5, 249, 0.15);
 
-insert into products values ('p003', 'camera', 20, 5, 148, 0.2);
+insert into products values ('p003', 'camera', 10, 5, 148, 0.2);
 
-insert into products values ('p004', 'pencil', 100, 10, 0.99, 0.0);
+insert into products values ('p004', 'pencil', 26, 10, 0.99, 0.0);
 
 insert into products values ('p005', 'chair', 10, 8, 12.98, 0.3);
 
-insert into products values ('p006', 'lamp', 10, 6, 19.95, 0.1);
+insert into products values ('p006', 'lamp', 11, 6, 19.95, 0.1);
 
-insert into products values ('p007', 'tablet', 50, 10, 149, 0.2);
+insert into products values ('p007', 'tablet', 13, 10, 149, 0.2);
 
-insert into products values ('p008', 'computer', 5, 3, 499, 0.3);
+insert into products values ('p008', 'computer', 6, 3, 499, 0.3);
 
-insert into products values ('p009', 'powerbank', 20, 5, 49.95, 0.1);
+insert into products values ('p009', 'powerbank', 8, 5, 49.95, 0.1);
 
 insert into purchases values (pur#_seq.nextval, 'e01', 'p002', 'c001', 1, to_date('12-AUG-2015 10:34:30', 'DD-MON-YYYY HH24:MI:SS'), 211.65);
 
@@ -177,19 +177,21 @@ insert into suppliers values ('s3', 'Panasonic', 'New York', '607-456-7890');
 
 insert into suppliers values ('s4', 'LampsUSA', 'Jackson', '878-231-5961');
 
-insert into supply values (sup#_seq.nextval, 'p002', 's3', to_date('02-OCT-2015 10:56:23', 'DD-MON-YYYY HH24:MI:SS'), 123);
+insert into supply values (sup#_seq.nextval, 'p001', 's3', to_date('02-OCT-2015 10:56:23', 'DD-MON-YYYY HH24:MI:SS'), 123);
 
-insert into supply values (sup#_seq.nextval, 'p006', 's4', to_date('23-SEP-2015 13:15:17', 'DD-MON-YYYY HH24:MI:SS'), 54);
+insert into supply values (sup#_seq.nextval, 'p002', 's4', to_date('23-SEP-2015 13:15:17', 'DD-MON-YYYY HH24:MI:SS'), 10);
 
-insert into supply values (sup#_seq.nextval, 'p003', 's3', to_date('14-MAY-2015 15:17:19', 'DD-MON-YYYY HH24:MI:SS'), 21);
+insert into supply values (sup#_seq.nextval, 'p003', 's3', to_date('14-MAY-2015 15:17:19', 'DD-MON-YYYY HH24:MI:SS'), 12);
 
-insert into supply values (sup#_seq.nextval, 'p004', 's2', to_date('07-AUG-2015 17:19:21', 'DD-MON-YYYY HH24:MI:SS'), 250);
+insert into supply values (sup#_seq.nextval, 'p004', 's2', to_date('07-AUG-2015 17:19:21', 'DD-MON-YYYY HH24:MI:SS'), 50);
 
-insert into supply values (sup#_seq.nextval, 'p001', 's2', to_date('11-OCT-2015 19:21:23', 'DD-MON-YYYY HH24:MI:SS'), 88);
+insert into supply values (sup#_seq.nextval, 'p005', 's2', to_date('11-OCT-2015 19:21:23', 'DD-MON-YYYY HH24:MI:SS'), 12);
 
-insert into supply values (sup#_seq.nextval, 'p007', 's1', to_date('24-JUN-2015 21:23:25', 'DD-MON-YYYY HH24:MI:SS'), 12);
+insert into supply values (sup#_seq.nextval, 'p006', 's1', to_date('24-JUN-2015 21:23:25', 'DD-MON-YYYY HH24:MI:SS'), 15);
 
-insert into supply values (sup#_seq.nextval, 'p008', 's1', to_date('21-SEP-2015 23:24:25', 'DD-MON-YYYY HH24:MI:SS'), 5);
+insert into supply values (sup#_seq.nextval, 'p007', 's1', to_date('21-SEP-2015 23:24:25', 'DD-MON-YYYY HH24:MI:SS'), 8);
 
-insert into supply values (sup#_seq.nextval, 'p008', 's0', to_date('15-NOV-2015 11:12:13', 'DD-MON-YYYY HH24:MI:SS'), 6);
+insert into supply values (sup#_seq.nextval, 'p008', 's0', to_date('15-NOV-2015 11:12:13', 'DD-MON-YYYY HH24:MI:SS'), 5);
+
+insert into supply values (sup#_seq.nextval, 'p009', 's0', to_date('12-NOV-2015 08:12:13', 'DD-MON-YYYY HH24:MI:SS'), 15);
 
