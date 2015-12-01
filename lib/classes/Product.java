@@ -28,15 +28,15 @@ public class Product {
 		}
 
 		Statement stmt = null;
-		System.out.println("PID passed to product contstructor is: " + pid_in);
+		//System.out.println("PID passed to product contstructor is: " + pid_in);
 		//Create the query
 		StringBuilder sql = new StringBuilder();
 		sql.append("select * ");
 		sql.append("from products p ");
 		sql.append("where p.pid = '" + pid_in + "'");
 
-		System.out.println("Query built is: \n");
-		System.out.println(sql);
+		//System.out.println("Query built is: \n");
+		//System.out.println(sql);
 		try{
 			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery(sql.toString());
@@ -48,7 +48,7 @@ public class Product {
 					this.qoh_threshold = rs.getInt(4);
 					this.original_price = rs.getFloat(5);
 					this.discnt_rate = rs.getFloat(6);
-					System.out.println("PID of product obtained: " + this.pid);
+					//System.out.println("PID of product obtained: " + this.pid);
 					}//Ensure the product selected was correct
 					if(this.pid == null || !this.pid.equalsIgnoreCase(pid_in))
 					{

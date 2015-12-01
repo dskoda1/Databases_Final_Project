@@ -323,7 +323,7 @@ public class Main {
 
 				//Obtain a version of the product prior to the purchase
 				Product oldProd = new Product(pid, conn);
-				System.out.println("Products QOH before purchase: " + oldProd.getQoh());
+				//System.out.println("Products QOH before purchase: " + oldProd.getQoh());
 
 
 				//Create and prepare the call
@@ -339,7 +339,7 @@ public class Main {
 				//Now obtain a version of the product after the purchase
 				Product newProd = new Product(pid, conn);
 			
-				System.out.println("Products QOH after purchase: " + newProd.getQoh());
+				//System.out.println("Products QOH after purchase: " + newProd.getQoh());
 
 				//Check newQoh is oldQoh - qty, otherwise a supply was ordered so
 				//Output to user about it

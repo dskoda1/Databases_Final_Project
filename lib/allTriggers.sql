@@ -16,6 +16,9 @@ qohNeeded products.qoh%type;
 prod products%rowtype;
 supplierId supply.sid%type;
 supplierCount number(6);
+visits customers.visits_made%type;
+last_visit customers.last_visit_date%type;
+custID customers.cid%type;
 begin
 	ppid := :NEW.pid;
 	dbms_output.put_line('Product just purchased: ' || ppid);
@@ -80,6 +83,22 @@ begin
 	
 	--Check if customers last visit date is same or not same as today
 	--Update if necessary	
+
+	select c.cid, visits_made, last_visit_date
+	into custID, visits, last_visit
+	from customers c
+	where :NEW.cid = cid;
+	
+	if(to_char(last_visit , 'DD-MON-YY') != to_char(:NEW.ptime, 'DD-MON-YY'))
+	then 
+		update customers c
+		set c.visits_made = visits + 1
+		where c.cid = custID;
+	
+		update customers c
+		set c.last_visit_date = :NEW.ptime
+		where c.cid = custID;
+	end if; 
 end; 
 /
 show err;
