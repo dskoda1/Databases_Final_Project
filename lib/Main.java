@@ -70,7 +70,7 @@ public class Main {
 	public static int displayMenu(){
 
 		//Display the menu
-		System.out.println("Please select a choice below. (1 - 4)");
+		System.out.println("\n\nPlease select a choice below. (1 - 4)");
 		System.out.println("\t1. View records from a table");
 		System.out.println("\t2. Insert records into a table");
 		System.out.println("\t3. Monthly sales report of a product");
@@ -118,7 +118,7 @@ public class Main {
 	public static int displayViewRecordsMenu(){
 
 		//Output menu
-		System.out.println("Please select a choice below. (1 - 8)");
+		System.out.println("\n\nPlease select a choice below. (1 - 8)");
 		System.out.println("Which table would you like to see records from? ");
 		System.out.println("\t1. Employees");
 		System.out.println("\t2. Customers");
@@ -178,7 +178,7 @@ public class Main {
 		CallableStatement cs = null;
 		//report_monthly_sale(pid)
 		try{
-			System.out.println("\nPlease provide a product ID to get monthly sales report: \n");
+			System.out.println("\n\nPlease provide a product ID to get monthly sales report: \n");
 			String pid;
 			pid = s.nextLine();
 
