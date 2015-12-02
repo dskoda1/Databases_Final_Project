@@ -64,6 +64,7 @@ dropTables.sql- drops our entire system(tables, triggers, sequences)
 
 initScript.sql- runs all of the scripts in the proper order
 
+
 Inside of the classes folder:
 
 Customer.java, Employee.java, Supplier.java, Supply.java, 
