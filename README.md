@@ -22,6 +22,7 @@ email: jgrillo1@binghamton.edu, dskoda1@binghamton.edu
 
 
 Purpose:
+
 The goal of this assignment was to construct a fully functional database system
 through the use of PL/SQL programming as well as a java interface. The database
 represents a transactional dataset which includes entity sets such as employees, 
@@ -31,13 +32,17 @@ program also allows the insertion of new products and purchases into the databas
 A function for viewing a monthly sales report per selected product is also available.
 
 Percent Complete:
+
 Everything in this assignment has been completed.
 
 Bugs:
+
 No bugs.
 
 Files:
+
 Inside of the lib folder:
+
 Main.java- Actually runs our interface
 allTriggers.sql- contains all of our triggers for the database system
 displayTable.sql- package which contains functions to display all of 
@@ -52,6 +57,7 @@ dropTables.sql- drops our entire system(tables, triggers, sequences)
 initScript.sql- runs all of the scripts in the proper order
 
 Inside of the classes folder:
+
 Customer.java, Employee.java, Supplier.java, Supply.java, 
 Product.java, Purchase.java, Log.java, monthlySale.java
 All these files are used to interact with the sql code
