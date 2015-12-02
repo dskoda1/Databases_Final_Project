@@ -1,3 +1,17 @@
+--Create sequences
+
+create sequence pur#_seq
+start with 100000
+increment by 1;
+
+create sequence sup#_seq
+start with 1000
+increment by 1;
+
+create sequence log#_seq
+start with 10000
+increment by 1;
+
 --Create tables:
 
 create table employees
