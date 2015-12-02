@@ -10,11 +10,17 @@ From the lib directory run these commands
     java -cp .:ojdbc.jar Main classes/*.class
 
 CS432 Database Systems
+
 Fall 2015
+
 Project 2 README FILE
+
 Due Date: Tuesday, December 1, 2015
+
 Author: Joseph Grillo and David Skoda
+
 email: jgrillo1@binghamton.edu, dskoda1@binghamton.edu
+
 
 Purpose:
 The goal of this assignment was to construct a fully functional database system
