@@ -70,7 +70,7 @@ public class Supply {
 		return this.sid;
 	}
 	public String getSDate(){
-		return this.sdate;
+		return this.sdate.substring(0,10);
 	}
 	public int getQuantity(){
 		return this.quantity;

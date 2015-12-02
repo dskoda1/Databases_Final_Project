@@ -73,6 +73,7 @@ public class Customer {
 		return this.visits_made;
 	}
 	public String getLastVisitDate(){
-		return this.last_visit_date;
+		
+		return this.last_visit_date.substring(0,10);
 	}
 }
