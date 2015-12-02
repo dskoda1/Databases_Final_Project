@@ -1,8 +1,7 @@
 ##CS532 Project 2- Retail Business Management System
 
-### Compilation
-From the lib directory run these commands
-    To compile:
+From the lib directory
+###### To compile:
 
     javac -cp .:ojdbc.jar Main.java classes/*.java
 ###### then to run:
