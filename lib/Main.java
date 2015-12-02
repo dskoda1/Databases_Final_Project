@@ -97,7 +97,7 @@ public class Main {
 	public static int displayInsertRecordsMenu(){
 
 		//Output menu
-		System.out.println("Please select a choice below. (1 - 3)");
+		System.out.println("\n\nPlease select a choice below. (1 - 3)");
 		System.out.println("\t1. Add a product");
 		System.out.println("\t2. Make a purchase");
 		System.out.println("\t3. Return to main menu");
@@ -240,7 +240,7 @@ public class Main {
 				double originalPrice, discntRate;
 
 				//pid
-				System.out.println("\nNew product id in the form 'p003': ");
+				System.out.println("\nNew product id in the form p003 : ");
 				pid = s.nextLine();
 				//pname
 				System.out.println("\nNew product's name: ");
@@ -250,6 +250,8 @@ public class Main {
 				System.out.println("\nNew product's current quantity on hand: ");
 				try{
 					qoh = Integer.parseInt(s.nextLine());
+          if(qoh < 0)
+            throw new NumberFormatException("Negative QOH invalid.");
 				}catch(NumberFormatException nfe){
 					System.out.println("\n*** Invalid number given for QOH value when attempting to -Insert Product Record-. Please try again with an 'integer' value.");
 					return;			
@@ -258,15 +260,19 @@ public class Main {
 				System.out.println("New product's quantity on hand threshold: ");
 				try{
 					qohThreshold= Integer.parseInt(s.nextLine());
+          if(qohThreshold < 0)
+            throw new NumberFormatException("Negative QOH invalid.");
 				}catch(NumberFormatException nfe){
 					System.out.println("\n*** Invalid number given for QOH Threshold value when attempting to -Insert Product Record-. Please try again with an 'integer' value.");
 					return;			
 				}
 
 				//orig price
-				System.out.println("\nNew product's price in the form '24.99' or just '24': ");
+				System.out.println("\nNew product's price in the form 24.99 or just 24: ");
 				try{
 					originalPrice = Double.parseDouble(s.nextLine());
+          if(originalPrice < 0)
+            throw new NumberFormatException("Negative price invalid.");
 				}catch(NumberFormatException nfe){
 					System.out.println("\n*** Invalid number given for original price when attempting to -Insert Product Record-. Please try again with an 'double' value in the form 24.00 or just 24.");
 					return;			
@@ -316,6 +322,8 @@ public class Main {
 				System.out.println("\nQuantity purchased as a number: ");
 				try{
 					qty = Integer.parseInt(s.nextLine());
+          if(qty < 1)
+            throw new NumberFormatException("Unable to purchase less than 1 of any product at the moment.");
 				}catch(NumberFormatException nfe){
 					System.out.println("\n*** Invalid number given for quantity value when attempting to -Insert Purchase Record-. Please try again with an 'integer' value.");
 					return;			
