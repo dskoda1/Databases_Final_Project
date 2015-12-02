@@ -44,21 +44,30 @@ Files:
 Inside of the lib folder:
 
 Main.java- Actually runs our interface
+
 allTriggers.sql- contains all of our triggers for the database system
+
 displayTable.sql- package which contains functions to display all of 
 the different tables in our system
+
 insertRecord.sql- package which contains procedures to add purchases 
 or products to our system
+
 monthlySale.sql- package which contains a function to get the monthly
 sales report
+
 ojdbc.jar- java compiler
+
 Proj2data.sql- holds all our initial creations of the system
+
 dropTables.sql- drops our entire system(tables, triggers, sequences)
+
 initScript.sql- runs all of the scripts in the proper order
 
 Inside of the classes folder:
 
 Customer.java, Employee.java, Supplier.java, Supply.java, 
 Product.java, Purchase.java, Log.java, monthlySale.java
-All these files are used to interact with the sql code
+
+All these files are used to interact with the sql code.
 Basically just used for displaying tables from sql functions
