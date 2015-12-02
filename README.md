@@ -37,13 +37,13 @@ Everything in this assignment has been completed.
 
 Bugs:
 
-No bugs.
+No known bugs.
 
 Files:
 
 Inside of the lib folder:
 
-Main.java- Actually runs our interface
+Main.java- Command line interface that runs our program
 
 allTriggers.sql- contains all of our triggers for the database system
 
@@ -56,7 +56,7 @@ or products to our system
 monthlySale.sql- package which contains a function to get the monthly
 sales report
 
-ojdbc.jar- java compiler
+ojdbc.jar- oracle java database connectivity (ojdbc6) jar file 
 
 Proj2data.sql- holds all our initial creations of the system
 
@@ -70,5 +70,4 @@ Inside of the classes folder:
 Customer.java, Employee.java, Supplier.java, Supply.java, 
 Product.java, Purchase.java, Log.java, monthlySale.java
 
-All these files are used to interact with the sql code.
-Basically just used for displaying tables from sql functions
+These are the DAO/POJO files we use for accessing the database and modeling the data.

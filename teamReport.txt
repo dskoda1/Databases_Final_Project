@@ -1,0 +1,25 @@
+Team Report
+As a team we met to discuss our project once before Thanksgiving break and twice after Thanksgiving break. During the break we communicated almost everyday to discuss ideas for the project as well as progress that was being made and what work still needed to be completed. We exchanged our code through git hub which allowed any updates either one of us made to come with a message briefly describing the change. Overall this was a good experience. The project came out well and there were no internal conflicts between team members. Both team members were flexible in what they needed to work on as well as when they would work on things. Each member learned some good coding practices from one another as well as some PL/SQL coding techniques. Both team members felt like the project workload was equally split.
+
+Code breakdown:
+David Skoda:
+  -Set up github connection to bingsuns
+  -most of Main.java
+  -some of displayTable.sql
+  -insertRecord.sql
+  -some of allTriggers.sql
+  -most of exception handling
+  -some of dropTable.sql
+  -insertRecord.sql
+  -half of the POJO classes
+Joseph Grillo
+  -Team Report
+  -Readme
+  -Proj2data.sql
+  -some of allTriggers.sql
+  -initScript.sql
+  -monthlySale.sql
+  -some of Main.java
+  -most of displayTable.sql
+  -some of dropTable.sql
+  -half of the POJO classes
